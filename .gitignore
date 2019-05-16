@@ -1,0 +1,19 @@
+*.DS_store
+*index.php
+/languages/
+/uploads/
+
+
+# ignore these plugins
+plugins/hello.php
+
+# ignore specific themes
+themes/twenty*/
+
+# ignore node dependency directories
+node_modules/
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
