@@ -107,12 +107,21 @@ function underscores_widgets_init() {
 	register_sidebar( array(
 		'name'          => esc_html__( 'Sidebar', 'underscores' ),
 		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'underscores' ),
+		'description'   => esc_html__( 'Add sidebar widgets here.', 'underscores' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+		register_sidebar( array(
+			'name'          => esc_html__( 'Footer', 'underscores' ),
+			'id'            => 'footer-1',
+			'description'   => esc_html__( 'Add footer widgets here.', 'underscores' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		) );
 }
 add_action( 'widgets_init', 'underscores_widgets_init' );
 
@@ -120,16 +129,18 @@ add_action( 'widgets_init', 'underscores_widgets_init' );
  * Enqueue scripts and styles.
  */
 function underscores_scripts() {
-	wp_enqueue_style( 'underscores-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'underscores-style', get_template_directory_uri() . '/build/main.css' );
 
-	wp_enqueue_script( 'underscores-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-
-	wp_enqueue_script( 'underscores-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'underscores-script', get_template_directory_uri() . '/build/script.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
+function underscores_fontawesome(){
+	wp_enqueue_style('underscores_fontawesome', 'https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+}
+add_action( 'wp_enqueue_styles', 'underscores_fontawesome');
 add_action( 'wp_enqueue_scripts', 'underscores_scripts' );
 
 /**
@@ -158,4 +169,5 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
+/* login page customization*/
+require get_template_directory() . '/inc/extras.php';
